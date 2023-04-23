@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  --primary: #f2f2f2;
+  --secondary: #d4ebf7;
+  --highlight: #4f5dc3;
+  --overlay: #72a5d1;
+  --text: #262627;
+}
