@@ -56,18 +56,22 @@ const Search = ({ setQuery }) => {
         setSearchOption((prev) => !prev);
     };
 
+    const updateSearchInput = (value) => {
+        inputRef.current.value = value;
+    };
+
     const onSearch = (e) => {
         if (e.key === 'Enter') {
             const currentValue = e.target.value;
             setQuery(currentValue);
-            inputRef.current.value = '';
+            updateSearchInput('');
             setSearchTags((prev) => [...prev, currentValue]);
         }
     };
 
     const searchTag = (tag) => {
         setQuery(tag);
-        inputRef.current.value = tag;
+        updateSearchInput(tag);
     };
 
     return (
