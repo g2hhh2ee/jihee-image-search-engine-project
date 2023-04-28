@@ -65,6 +65,11 @@ const Search = ({ setQuery }) => {
         }
     };
 
+    const searchTag = (tag) => {
+        setQuery(tag);
+        inputRef.current.value = tag;
+    };
+
     return (
         <>
             <SearchBoxContainer>
@@ -83,7 +88,11 @@ const Search = ({ setQuery }) => {
             </SearchBoxContainer>
             <SearchTagContainer>
                 {searchTags.map((tag, idx) => (
-                    <SearchTag key={tag + idx} tag={tag} />
+                    <SearchTag
+                        key={tag + idx}
+                        tag={tag}
+                        searchTag={() => searchTag(tag)}
+                    />
                 ))}
             </SearchTagContainer>
         </>
