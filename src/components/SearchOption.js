@@ -18,8 +18,8 @@ const SearchOptionLi = styled.li`
 `;
 
 const SearchOptionLabel = styled.p`
-    border: 1px solid #4cabff;
-    color: #4cabff;
+    border: 1px solid var(--overlay);
+    color: var(--overlay);
     padding: 4px;
     border-radius: 16px;
 `;

@@ -2,9 +2,11 @@ import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 
 import getImages from './api/getImages';
+
 import Hero from './components/Hero';
 import Footer from './components/Footer';
 import ResultContainer from './components/ResultContainer';
+import ToggleThemeButton from './components/ToggleThemeButton';
 
 import './App.css';
 
@@ -52,6 +54,7 @@ function App() {
                 numOfPages={numOfPages}
             />
             <Footer />
+            <ToggleThemeButton />
         </Container>
     );
 }
