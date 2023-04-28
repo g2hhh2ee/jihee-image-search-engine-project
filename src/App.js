@@ -17,20 +17,28 @@ const Container = styled.div`
 function App() {
     const [data, setData] = useState({});
     const [query, setQuery] = useState('');
+    const [orientation, setOrientation] = useState('all');
+    const [order, setOrder] = useState('popular');
 
     useEffect(() => {
         const fetch = async () => {
             const data = await getImages({
                 q: query,
+                orientation: orientation,
+                order: order,
             });
             setData(data);
         };
         fetch();
-    }, [query]);
+    }, [query, orientation, order]);
 
     return (
         <Container>
-            <Hero setQuery={setQuery} />
+            <Hero
+                setQuery={setQuery}
+                setOrientation={setOrientation}
+                setOrder={setOrder}
+            />
             <ResultContainer data={data} />
             <Footer />
         </Container>
