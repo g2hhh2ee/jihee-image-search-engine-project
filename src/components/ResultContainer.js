@@ -1,7 +1,4 @@
 import styled from 'styled-components';
-import { useState, useEffect } from 'react';
-
-import getImages from '../api/getImages';
 
 import ImageCard from './ImageCard';
 
@@ -19,17 +16,7 @@ const ResultsWrapper = styled.div`
     width: 100%;
 `;
 
-const ResultContainer = () => {
-    const [data, setData] = useState({});
-
-    useEffect(() => {
-        const fetch = async () => {
-            const data = await getImages();
-            setData(data);
-        };
-        fetch();
-    }, []);
-
+const ResultContainer = ({ data }) => {
     return (
         <Container>
             <ResultsWrapper>
