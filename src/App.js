@@ -16,18 +16,21 @@ const Container = styled.div`
 
 function App() {
     const [data, setData] = useState({});
+    const [query, setQuery] = useState('');
 
     useEffect(() => {
         const fetch = async () => {
-            const data = await getImages();
+            const data = await getImages({
+                q: query,
+            });
             setData(data);
         };
         fetch();
-    }, []);
+    }, [query]);
 
     return (
         <Container>
-            <Hero />
+            <Hero setQuery={setQuery} />
             <ResultContainer data={data} />
             <Footer />
         </Container>
