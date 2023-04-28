@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as SearchIcon } from '../asset/search.svg';
 import SearchTag from './SearchTag';
@@ -47,21 +47,47 @@ const SearchOptionButton = styled.p`
 `;
 
 const Search = ({ setQuery }) => {
+    const savedSearchTags = localStorage.getItem('searchTags');
+    const initialSearchTags = savedSearchTags
+        ? JSON.parse(savedSearchTags)
+        : [];
+
     const inputRef = useRef(null);
 
     const [searchOption, setSearchOption] = useState(false);
+    const [searchTags, setSearchTags] = useState(initialSearchTags);
 
     const toggleSearchOption = () => {
         setSearchOption((prev) => !prev);
+    };
+
+    const updateSearchInput = (value) => {
+        inputRef.current.value = value;
     };
 
     const onSearch = (e) => {
         if (e.key === 'Enter') {
             const currentValue = e.target.value;
             setQuery(currentValue);
-            inputRef.current.value = '';
+            updateSearchInput('');
+            setSearchTags((prev) => [...prev, currentValue]);
         }
     };
+
+    const searchTag = (tag) => {
+        setQuery(tag);
+        updateSearchInput(tag);
+    };
+
+    const deleteTag = (idx) => {
+        const newSearchTags = [...searchTags];
+        newSearchTags.splice(idx, 1);
+        setSearchTags(newSearchTags);
+    };
+
+    useEffect(() => {
+        localStorage.setItem('searchTags', JSON.stringify(searchTags));
+    }, [searchTags]);
 
     return (
         <>
@@ -80,7 +106,14 @@ const Search = ({ setQuery }) => {
                 {searchOption && <SearchOption />}
             </SearchBoxContainer>
             <SearchTagContainer>
-                <SearchTag />
+                {searchTags.map((tag, idx) => (
+                    <SearchTag
+                        key={tag + idx}
+                        tag={tag}
+                        searchTag={() => searchTag(tag)}
+                        deleteTag={() => deleteTag(idx)}
+                    />
+                ))}
             </SearchTagContainer>
         </>
     );
