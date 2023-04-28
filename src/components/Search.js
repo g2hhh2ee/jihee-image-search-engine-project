@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as SearchIcon } from '../asset/search.svg';
 import SearchTag from './SearchTag';
@@ -47,6 +47,8 @@ const SearchOptionButton = styled.p`
 `;
 
 const Search = ({ setQuery }) => {
+    const inputRef = useRef(null);
+
     const [searchOption, setSearchOption] = useState(false);
 
     const toggleSearchOption = () => {
@@ -57,6 +59,7 @@ const Search = ({ setQuery }) => {
         if (e.key === 'Enter') {
             const currentValue = e.target.value;
             setQuery(currentValue);
+            inputRef.current.value = '';
         }
     };
 
@@ -66,6 +69,7 @@ const Search = ({ setQuery }) => {
                 <SearchInputContainer>
                     <SearchIcon width="24" fill="#5e5e5e" />
                     <SearchInput
+                        ref={inputRef}
                         placeholder="검색어 입력 후 ENTER"
                         onKeyDown={onSearch}
                     />
