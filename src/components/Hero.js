@@ -36,7 +36,7 @@ const Content = styled.div`
     padding: 120px 32px 16px 32px;
 `;
 
-const Hero = ({ setQuery, setOrder, setOrientation }) => {
+const Hero = ({ setQuery, setOrder, setOrientation, setPerPage }) => {
     return (
         <Container>
             <Content>
@@ -50,6 +50,7 @@ const Hero = ({ setQuery, setOrder, setOrientation }) => {
                     setQuery={setQuery}
                     setOrientation={setOrientation}
                     setOrder={setOrder}
+                    setPerPage={setPerPage}
                 />
             </Content>
         </Container>
