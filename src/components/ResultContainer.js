@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import ImageCard from './ImageCard';
 import EmptyResult from './EmptyResult';
+import Pagination from './Pagination';
 
 const Container = styled.div`
     max-width: 1830px;
@@ -17,9 +18,16 @@ const ResultsWrapper = styled.div`
     width: 100%;
 `;
 
-const ResultContainer = ({ data }) => {
+const ResultContainer = ({ data, page, setPage, numOfPages }) => {
     return (
         <Container>
+            {data.hits?.length > 0 && (
+                <Pagination
+                    page={page}
+                    setPage={setPage}
+                    numOfPages={numOfPages}
+                />
+            )}
             <ResultsWrapper>
                 {data.hits?.length > 0 ? (
                     data.hits?.map((imgData) => (
