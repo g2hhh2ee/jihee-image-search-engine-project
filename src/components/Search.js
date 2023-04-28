@@ -74,6 +74,12 @@ const Search = ({ setQuery }) => {
         updateSearchInput(tag);
     };
 
+    const deleteTag = (idx) => {
+        const newSearchTags = [...searchTags];
+        newSearchTags.splice(idx, 1);
+        setSearchTags(newSearchTags);
+    };
+
     return (
         <>
             <SearchBoxContainer>
@@ -96,6 +102,7 @@ const Search = ({ setQuery }) => {
                         key={tag + idx}
                         tag={tag}
                         searchTag={() => searchTag(tag)}
+                        deleteTag={() => deleteTag(idx)}
                     />
                 ))}
             </SearchTagContainer>
