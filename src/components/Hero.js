@@ -36,7 +36,7 @@ const Content = styled.div`
     padding: 120px 32px 16px 32px;
 `;
 
-const Hero = ({ setQuery }) => {
+const Hero = ({ setQuery, setOrder, setOrientation }) => {
     return (
         <Container>
             <Content>
@@ -46,7 +46,11 @@ const Hero = ({ setQuery }) => {
                     </HeroTitleLink>
                 </HeroTitle>
                 <HeroSubtitle>관심있는 키워드를 입력하세요!</HeroSubtitle>
-                <Search setQuery={setQuery} />
+                <Search
+                    setQuery={setQuery}
+                    setOrientation={setOrientation}
+                    setOrder={setOrder}
+                />
             </Content>
         </Container>
     );
