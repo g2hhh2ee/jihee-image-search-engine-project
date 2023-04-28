@@ -50,6 +50,7 @@ const Search = ({ setQuery }) => {
     const inputRef = useRef(null);
 
     const [searchOption, setSearchOption] = useState(false);
+    const [searchTags, setSearchTags] = useState([]);
 
     const toggleSearchOption = () => {
         setSearchOption((prev) => !prev);
@@ -60,6 +61,7 @@ const Search = ({ setQuery }) => {
             const currentValue = e.target.value;
             setQuery(currentValue);
             inputRef.current.value = '';
+            setSearchTags((prev) => [...prev, currentValue]);
         }
     };
 
@@ -80,7 +82,9 @@ const Search = ({ setQuery }) => {
                 {searchOption && <SearchOption />}
             </SearchBoxContainer>
             <SearchTagContainer>
-                <SearchTag />
+                {searchTags.map((tag, idx) => (
+                    <SearchTag key={tag + idx} tag={tag} />
+                ))}
             </SearchTagContainer>
         </>
     );
