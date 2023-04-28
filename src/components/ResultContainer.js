@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import ImageCard from './ImageCard';
+import EmptyResult from './EmptyResult';
 
 const Container = styled.div`
     max-width: 1830px;
@@ -20,9 +21,13 @@ const ResultContainer = ({ data }) => {
     return (
         <Container>
             <ResultsWrapper>
-                {data.hits?.map((imgData) => (
-                    <ImageCard key={imgData.id} imgData={imgData} />
-                ))}
+                {data.hits?.length > 0 ? (
+                    data.hits?.map((imgData) => (
+                        <ImageCard key={imgData.id} imgData={imgData} />
+                    ))
+                ) : (
+                    <EmptyResult />
+                )}
             </ResultsWrapper>
         </Container>
     );
