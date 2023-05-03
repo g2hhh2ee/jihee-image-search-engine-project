@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import getImages from './api/getImages';
 
@@ -17,13 +17,14 @@ const Container = styled.div`
 `;
 
 function App() {
-    const [data, setData] = useState({});
+    const [data, setData] = useState({ total: 0, totalHits: 0, hits: [] });
     const [query, setQuery] = useState('');
     const [orientation, setOrientation] = useState('all');
     const [order, setOrder] = useState('popular');
     const [page, setPage] = useState(1);
     const [perPage, setPerPage] = useState(20);
     const numOfPages = data.totalHits ? Math.ceil(data.totalHits / perPage) : 0;
+    const target = useRef(null);
 
     useEffect(() => {
         const fetch = async () => {
@@ -34,10 +35,26 @@ function App() {
                 page: page,
                 per_page: perPage,
             });
-            setData(data);
+            setData((prevData) => ({
+                ...prevData,
+                hits: [...prevData.hits, ...data.hits],
+            }));
         };
         fetch();
     }, [query, orientation, order, page, perPage]);
+
+    const callback = ([entries]) => {
+        if (entries.isIntersecting) {
+            setPage((prev) => prev + 1);
+        }
+    };
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(callback, {
+            threshold: 1,
+        });
+        observer.observe(target.current);
+    }, []);
 
     return (
         <Container>
@@ -53,6 +70,9 @@ function App() {
                 setPage={setPage}
                 numOfPages={numOfPages}
             />
+            <div ref={target}>
+                <h1>로딩중!!!</h1>
+            </div>
             <Footer />
             <ToggleThemeButton />
         </Container>
