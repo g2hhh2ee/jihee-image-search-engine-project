@@ -55,6 +55,7 @@ function App() {
     };
 
     useEffect(() => {
+        if (!target.current) return;
         const observer = new IntersectionObserver(callback, {
             threshold: 1,
         });
@@ -79,9 +80,11 @@ function App() {
                 setPage={setPage}
                 numOfPages={numOfPages}
             />
-            <div ref={target}>
-                <EmptyResult isLoading={data.totalHits} />
-            </div>
+            {page !== numOfPages && (
+                <div ref={target}>
+                    <EmptyResult isLoading={data.totalHits} />
+                </div>
+            )}
             <Footer />
             <ToggleThemeButton />
         </Container>
