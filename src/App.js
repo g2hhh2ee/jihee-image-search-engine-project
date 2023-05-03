@@ -9,6 +9,7 @@ import ResultContainer from './components/ResultContainer';
 import ToggleThemeButton from './components/ToggleThemeButton';
 
 import './App.css';
+import EmptyResult from './components/EmptyResult';
 
 const Container = styled.div`
     min-height: 100vh;
@@ -79,7 +80,7 @@ function App() {
                 numOfPages={numOfPages}
             />
             <div ref={target}>
-                <h1>로딩중!!!</h1>
+                <EmptyResult isLoading={true} />
             </div>
             <Footer />
             <ToggleThemeButton />
