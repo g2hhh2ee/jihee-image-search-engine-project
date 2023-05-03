@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import getImages from './api/getImages';
 
@@ -9,6 +9,7 @@ import ResultContainer from './components/ResultContainer';
 import ToggleThemeButton from './components/ToggleThemeButton';
 
 import './App.css';
+import EmptyResult from './components/EmptyResult';
 
 const Container = styled.div`
     min-height: 100vh;
@@ -17,13 +18,14 @@ const Container = styled.div`
 `;
 
 function App() {
-    const [data, setData] = useState({});
+    const [data, setData] = useState({ total: 0, totalHits: 0, hits: [] });
     const [query, setQuery] = useState('');
     const [orientation, setOrientation] = useState('all');
     const [order, setOrder] = useState('popular');
     const [page, setPage] = useState(1);
     const [perPage, setPerPage] = useState(20);
     const numOfPages = data.totalHits ? Math.ceil(data.totalHits / perPage) : 0;
+    const target = useRef(null);
 
     useEffect(() => {
         const fetch = async () => {
@@ -34,10 +36,35 @@ function App() {
                 page: page,
                 per_page: perPage,
             });
-            setData(data);
+            if (page === 1) {
+                setData(data);
+            } else {
+                setData((prevData) => ({
+                    ...prevData,
+                    hits: [...prevData.hits, ...data.hits],
+                }));
+            }
         };
         fetch();
     }, [query, orientation, order, page, perPage]);
+
+    const callback = ([entries]) => {
+        if (entries.isIntersecting) {
+            setPage((prev) => prev + 1);
+        }
+    };
+
+    useEffect(() => {
+        if (!target.current) return;
+        const observer = new IntersectionObserver(callback, {
+            threshold: 1,
+        });
+        observer.observe(target.current);
+    }, []);
+
+    useEffect(() => {
+        setPage(1);
+    }, [query, orientation, order, perPage]);
 
     return (
         <Container>
@@ -53,6 +80,11 @@ function App() {
                 setPage={setPage}
                 numOfPages={numOfPages}
             />
+            {page !== numOfPages && (
+                <div ref={target}>
+                    <EmptyResult isLoading={data.totalHits} />
+                </div>
+            )}
             <Footer />
             <ToggleThemeButton />
         </Container>
