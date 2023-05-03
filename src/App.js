@@ -35,10 +35,14 @@ function App() {
                 page: page,
                 per_page: perPage,
             });
-            setData((prevData) => ({
-                ...prevData,
-                hits: [...prevData.hits, ...data.hits],
-            }));
+            if (page === 1) {
+                setData(data);
+            } else {
+                setData((prevData) => ({
+                    ...prevData,
+                    hits: [...prevData.hits, ...data.hits],
+                }));
+            }
         };
         fetch();
     }, [query, orientation, order, page, perPage]);
@@ -55,6 +59,10 @@ function App() {
         });
         observer.observe(target.current);
     }, []);
+
+    useEffect(() => {
+        setPage(1);
+    }, [query, orientation, order, perPage]);
 
     return (
         <Container>
