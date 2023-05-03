@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useState } from 'react';
 
 import ImageCard from './ImageCard';
-import EmptyResult from './EmptyResult';
+// import EmptyResult from './EmptyResult';
 // import Pagination from './Pagination';
 import ImageModal from './ImageModal';
 
@@ -39,17 +39,14 @@ const ResultContainer = ({ data, page, setPage, numOfPages }) => {
                 />
             )} */}
             <ResultsWrapper>
-                {data.hits?.length > 0 ? (
+                {data.hits?.length > 0 &&
                     data.hits?.map((imgData, idx) => (
                         <ImageCard
                             key={`${imgData.id}${idx}`}
                             imgData={imgData}
                             onClick={() => setCurrentImageDetail(imgData)}
                         />
-                    ))
-                ) : (
-                    <EmptyResult />
-                )}
+                    ))}
             </ResultsWrapper>
         </Container>
     );

@@ -80,7 +80,7 @@ function App() {
                 numOfPages={numOfPages}
             />
             <div ref={target}>
-                <EmptyResult isLoading={true} />
+                <EmptyResult isLoading={data.totalHits} />
             </div>
             <Footer />
             <ToggleThemeButton />
