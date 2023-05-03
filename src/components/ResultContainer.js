@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import ImageCard from './ImageCard';
 import EmptyResult from './EmptyResult';
-import Pagination from './Pagination';
+// import Pagination from './Pagination';
 import ImageModal from './ImageModal';
 
 const Container = styled.div`
@@ -31,13 +31,13 @@ const ResultContainer = ({ data, page, setPage, numOfPages }) => {
                     setCurrentImageDetail={setCurrentImageDetail}
                 />
             )}
-            {data.hits?.length > 0 && (
+            {/* {data.hits?.length > 0 && (
                 <Pagination
                     page={page}
                     setPage={setPage}
                     numOfPages={numOfPages}
                 />
-            )}
+            )} */}
             <ResultsWrapper>
                 {data.hits?.length > 0 ? (
                     data.hits?.map((imgData, idx) => (
