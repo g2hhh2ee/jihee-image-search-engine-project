@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { Suspense, lazy, useState } from 'react';
 
 import ImageCard from './ImageCard';
-import ImageModal from './ImageModal';
+const ImageModal = lazy(() => import('./ImageModal'));
 
 const Container = styled.div`
     max-width: 1830px;
@@ -23,12 +23,14 @@ const ResultContainer = ({ data, page, setPage, numOfPages }) => {
 
     return (
         <Container>
-            {currentImageDetail && (
-                <ImageModal
-                    currentImageDetail={currentImageDetail}
-                    setCurrentImageDetail={setCurrentImageDetail}
-                />
-            )}
+            <Suspense fallback={<h1>로딩중...</h1>}>
+                {currentImageDetail && (
+                    <ImageModal
+                        currentImageDetail={currentImageDetail}
+                        setCurrentImageDetail={setCurrentImageDetail}
+                    />
+                )}
+            </Suspense>
             <ResultsWrapper>
                 {data.hits?.length > 0 &&
                     data.hits?.map((imgData, idx) => (
