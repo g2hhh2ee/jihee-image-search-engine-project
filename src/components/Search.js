@@ -103,13 +103,13 @@ const Search = ({ setQuery, setOrder, setOrientation, setPerPage }) => {
                         검색 옵션 {searchOption ? '닫기' : '열기'}
                     </SearchOptionButton>
                 </SearchInputContainer>
-                {searchOption && (
+                <div hidden={searchOption}>
                     <SearchOption
                         setOrientation={setOrientation}
                         setOrder={setOrder}
                         setPerPage={setPerPage}
                     />
-                )}
+                </div>
             </SearchBoxContainer>
             <SearchTagContainer>
                 {searchTags.map((tag, idx) => (
