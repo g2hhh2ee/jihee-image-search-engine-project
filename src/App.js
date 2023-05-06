@@ -1,20 +1,32 @@
 import styled from 'styled-components';
 import { useState, useEffect, useRef } from 'react';
+import './App.css';
 
 import getImages from './api/getImages';
 
-import Hero from './components/Hero';
+import Title from './components/Title';
+import Search from './components/Search/Search';
 import Footer from './components/Footer';
-import ResultContainer from './components/ResultContainer';
+import ResultContainer from './components/Image/ImageContainer';
 import ToggleThemeButton from './components/ToggleThemeButton';
-
-import './App.css';
 import EmptyResult from './components/EmptyResult';
 
 const Container = styled.div`
     min-height: 100vh;
     position: relative;
     background-color: var(--primary);
+`;
+
+const Header = styled.div`
+    width: 100%;
+    position: relative;
+    background-color: var(--secondary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 32px 16px 32px;
 `;
 
 function App() {
@@ -67,27 +79,32 @@ function App() {
     }, [query, orientation, order, perPage]);
 
     return (
-        <Container>
-            <Hero
-                setQuery={setQuery}
-                setOrientation={setOrientation}
-                setOrder={setOrder}
-                setPerPage={setPerPage}
-            />
-            <ResultContainer
-                data={data}
-                page={page}
-                setPage={setPage}
-                numOfPages={numOfPages}
-            />
-            {page !== numOfPages && (
-                <div ref={target}>
-                    <EmptyResult isLoading={data.totalHits} />
-                </div>
-            )}
-            <Footer />
-            <ToggleThemeButton />
-        </Container>
+        <>
+            <Container>
+                <Header>
+                    <Title />
+                    <Search
+                        setQuery={setQuery}
+                        setOrientation={setOrientation}
+                        setOrder={setOrder}
+                        setPerPage={setPerPage}
+                    />
+                </Header>
+                <ResultContainer
+                    data={data}
+                    page={page}
+                    setPage={setPage}
+                    numOfPages={numOfPages}
+                />
+                {page !== numOfPages && (
+                    <div ref={target}>
+                        <EmptyResult isLoading={data.totalHits} />
+                    </div>
+                )}
+                <Footer />
+                <ToggleThemeButton />
+            </Container>
+        </>
     );
 }
 

@@ -18,7 +18,7 @@ const ResultsWrapper = styled.div`
     width: 100%;
 `;
 
-const ResultContainer = ({ data, page, setPage, numOfPages }) => {
+const ImageContainer = ({ data, page, setPage, numOfPages }) => {
     const [currentImageDetail, setCurrentImageDetail] = useState(null);
 
     return (
@@ -45,4 +45,4 @@ const ResultContainer = ({ data, page, setPage, numOfPages }) => {
     );
 };
 
-export default ResultContainer;
+export default ImageContainer;
