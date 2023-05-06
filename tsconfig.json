@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "target": "ES5", // ts 파일을 ts 컴파일러로 컴파일링을 했을 때 어떤 js 버전으로 나오길 원하는지
+        "lib": ["DOM", "DOM.Iterable", "ESNext"],
+        "allowJs": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "noFallthroughCasesInSwitch": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "jsx": "react-jsx"
+    },
+    "include": ["src"] // ts로 컴파일 한 루트 디렉토리
+}
