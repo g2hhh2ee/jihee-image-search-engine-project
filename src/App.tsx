@@ -8,7 +8,7 @@ import getImages from './api/getImages';
 import Title from './components/Title';
 import Search from './components/Search/Search';
 import Footer from './components/Footer';
-import ResultContainer from './components/Image/ImageContainer';
+import ImageContainer from './components/Image/ImageContainer';
 import ToggleThemeButton from './components/ToggleThemeButton';
 import EmptyResult from './components/EmptyResult';
 
@@ -95,11 +95,11 @@ function App() {
                         setPerPage={setPerPage}
                     />
                 </Header>
-                <ResultContainer
+                <ImageContainer
                     data={data}
-                    page={page}
-                    setPage={setPage}
-                    numOfPages={numOfPages}
+                    // page={page}
+                    // setPage={setPage}
+                    // numOfPages={numOfPages}
                 />
                 {page !== numOfPages && (
                     <div ref={target}>
