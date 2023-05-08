@@ -18,6 +18,12 @@
         "noEmit": true,
         "jsx": "react-jsx"
     },
-    "include": ["src", "./src/**/*.ts", "./src/**/*.tsx", "./types/index.d.ts"], // ts로 컴파일 한 루트 디렉토리
+    "include": [
+        "src",
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "types/index.d.ts",
+        "src/custom.d.ts"
+    ], // ts로 컴파일 한 루트 디렉토리
     "typeRoots": ["./types", "./node_modules/@types"]
 }
