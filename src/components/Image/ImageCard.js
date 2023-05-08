@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import { MouseEventHandler } from 'react';
-import { IImage } from '../../types';
 
 const Card = styled.div`
     margin-left: 8px;
@@ -17,12 +15,7 @@ const Img = styled.img`
     border-radius: 4px;
 `;
 
-interface IImageCard {
-    imgData: IImage;
-    onClick: MouseEventHandler<HTMLDivElement>;
-}
-
-const ImageCard = ({ imgData, onClick }: IImageCard) => {
+const ImageCard = ({ imgData, onClick }) => {
     const { previewURL, id } = imgData;
     return (
         <Card onClick={onClick}>

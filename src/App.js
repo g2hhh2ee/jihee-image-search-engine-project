@@ -2,13 +2,12 @@ import styled from 'styled-components';
 import { useState, useEffect, useRef } from 'react';
 import './App.css';
 
-import { IGetImagesResponse, Orientation, Order } from './types';
 import getImages from './api/getImages';
 
 import Title from './components/Title';
 import Search from './components/Search/Search';
 import Footer from './components/Footer';
-import ImageContainer from './components/Image/ImageContainer';
+import ResultContainer from './components/Image/ImageContainer';
 import ToggleThemeButton from './components/ToggleThemeButton';
 import EmptyResult from './components/EmptyResult';
 
@@ -31,14 +30,10 @@ const Header = styled.div`
 `;
 
 function App() {
-    const [data, setData] = useState<IGetImagesResponse>({
-        total: 0,
-        totalHits: 0,
-        hits: [],
-    });
+    const [data, setData] = useState({ total: 0, totalHits: 0, hits: [] });
     const [query, setQuery] = useState('');
-    const [orientation, setOrientation] = useState<Orientation>('all');
-    const [order, setOrder] = useState<Order>('popular');
+    const [orientation, setOrientation] = useState('all');
+    const [order, setOrder] = useState('popular');
     const [page, setPage] = useState(1);
     const [perPage, setPerPage] = useState(20);
     const numOfPages = data.totalHits ? Math.ceil(data.totalHits / perPage) : 0;
@@ -50,8 +45,8 @@ function App() {
                 q: query,
                 orientation: orientation,
                 order: order,
-                page: page.toString(),
-                per_page: perPage.toString(),
+                page: page,
+                per_page: perPage,
             });
             if (page === 1) {
                 setData(data);
@@ -65,7 +60,7 @@ function App() {
         fetch();
     }, [query, orientation, order, page, perPage]);
 
-    const callback: IntersectionObserverCallback = ([entries]) => {
+    const callback = ([entries]) => {
         if (entries.isIntersecting) {
             setPage((prev) => prev + 1);
         }
@@ -95,11 +90,11 @@ function App() {
                         setPerPage={setPerPage}
                     />
                 </Header>
-                <ImageContainer
+                <ResultContainer
                     data={data}
-                    // page={page}
-                    // setPage={setPage}
-                    // numOfPages={numOfPages}
+                    page={page}
+                    setPage={setPage}
+                    numOfPages={numOfPages}
                 />
                 {page !== numOfPages && (
                     <div ref={target}>
