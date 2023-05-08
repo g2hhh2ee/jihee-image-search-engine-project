@@ -23,10 +23,13 @@ const Button = styled.div`
     }
 `;
 
+// type Theme = 'light' | 'dark';
+
 const ToggleThemeButton = () => {
     const initialTheme = localStorage.getItem('theme')
         ? localStorage.getItem('theme')
         : 'light';
+    // const [theme, setTheme] = useState<Theme>(initialTheme);
     const [theme, setTheme] = useState(initialTheme);
     const toggleTheme = () => {
         const newTheme = theme === 'light' ? 'dark' : 'light';

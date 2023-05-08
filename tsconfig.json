@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "types": ["node"],
+        "target": "es6", // ts 파일을 ts 컴파일러로 컴파일링을 했을 때 어떤 js 버전으로 나오길 원하는지
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "allowJs": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "noImplicitAny": true,
+        "forceConsistentCasingInFileNames": true,
+        "noFallthroughCasesInSwitch": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "jsx": "react-jsx"
+    },
+    "include": [
+        "src",
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "types/index.d.ts",
+        "src/custom.d.ts"
+    ], // ts로 컴파일 한 루트 디렉토리
+    "typeRoots": ["./types", "./node_modules/@types"]
+}
